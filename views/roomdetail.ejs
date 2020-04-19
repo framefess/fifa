@@ -57,8 +57,8 @@
           <% for(var i=0; i<data.length; i++) {%>
             <tr>
               <td><%= i+1 %></td>
-              <td><%= moment(data[i].start).format('YYYY/MM/d')  %></td>
-              <td><%= moment(data[i].end).format('YYYY/MM/d') %></td>
+              <td><%= moment(data[i].start).format('YYYY/MM/DD')  %></td>
+              <td><%= moment(data[i].end).format('YYYY/MM/DD') %></td>
               <td><%= data[i].firstname+' '+data[i].lastname %> </td>
               <td><%= data[i].phone %></td>
               <td nowrap>
