@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <!-- <link rel="stylesheet" href="/javascripts/datepicker.min.css"> -->
+  <!-- <link rel="stylesheet" href="/stylesheets/tiny-date-picker.css">
+  <link rel="stylesheet" href="/stylesheets/date-range-picker.css">
+  <link rel="stylesheet" href="/stylesheets/date-r.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> -->
+</head>
+<style>
+  .con {
+    width: 900px;
+    margin: auto;
+    border: 10px aqua;
+  }
+
+  .w3-table th {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .w3-table td:first-child {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .w3-table td {
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .w3-container {
+    width: 500px;
+  }
+</style>
+
+<body>
+  <div class="w3-container con">
+    <center>
+      <h1><%= title %></h1>
+    </center>
+    <div class="w3-container w3-teal">
+      <h2>จองห้อง</h2>
+    </div>
+
+    <form class="w3-container" method="POST" action="/main/booking">
+      <% if (typeof message != "undefined") { %>
+      <div class="w3-panel w3-red">
+        <p><%= message %></p>
+      </div>
+      <% } %>
+      <label class="w3-text-teal"><b>ชื่อห้อง</b></label>
+      <select class="w3-select" name="room" id="room" required>
+        <option value="" disabled selected>เลือกห้อง</option>
+        <% for(var i=0; i<dataroom.length; i++) {%>
+        <option value="<%= dataroom[i]._id %>"><%= dataroom[i].name %></option>
+        <% } %>
+      </select>
+      <label class="w3-text-teal"><b>ชื่อ</b></label>
+ 
+        <input class="w3-input w3-border w3-light" type="text" name="firstname" id="firstname" />
+        <label class="w3-text-teal"><b>นามสกุล</b></label>
+    
+        <input class="w3-input w3-border w3-light" type="text" name="lastname" id="lastname" />
+        <label class="w3-text-teal"><b>เบอร์โทรศัพท์</b></label>
+     
+        <input class="w3-input w3-border w3-light" type="text" name="phone" id="phone" />
+      <label class="w3-text-teal"><b>วันที่</b></label>
+      <input class="w3-input w3-border w3-light" type="date" name="bookdate1" id="bookdate1" required/>
+      <label class="w3-text-teal"><b>ถึง</b></label>
+      <input class="w3-input w3-border w3-light" type="date" name="bookdate2" id="bookdate2" required/>
+
+      <center>
+        <button type="submit" class="w3-btn w3-blue-grey" style="margin-top: 5px;">
+          เพิ่ม
+        </button>
+        <button type="button" class="w3-btn w3-blue-grey" onclick="location.href='/main'"
+          style="float: right; margin-top: 5px;">
+          ย้อนกลับ
+        </button>
+      </center>
+    </form>
+  </div>
+
+
+
+  <script src="/javascripts/moment.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var elements = document.getElementsByTagName("INPUT");
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].oninvalid = function (e) {
+          e.target.setCustomValidity("");
+          if (!e.target.validity.valid) {
+            e.target.setCustomValidity("กรุณากรอก");
+          }
+        };
+        elements[i].oninput = function (e) {
+          e.target.setCustomValidity("");
+        };
+      }
+    });
+
+    const selectElement = document.querySelector('#bookdate1');
+
+    selectElement.addEventListener('change', (event) => {
+      // console.log(moment(document.getElementById("bookdate1").value).add(1, 'days'));
+      const input = document.getElementById("bookdate2");
+      const dateb = moment(document.getElementById("bookdate1").value).format("YYYY-MM-DD");
+      input.setAttribute("min", dateb);
+      input.value = dateb;
+
+      // const roomid = document.getElementById("room").options[document.getElementById("room").selectedIndex].value;
+      // console.log(roomid);
+      // var xhttp = new XMLHttpRequest();
+      // xhttp.onreadystatechange = function () {
+      //   if (this.readyState == 4 && this.status == 200) {
+      //     // Typical action to be performed when the document is ready:
+      //     console.log(xhttp.responseText);
+      //     // document.getElementById("demo").innerHTML = xhttp.responseText;
+      //   }
+      // };
+      // xhttp.open("POST", "/main/booking/maxdate", true);
+      // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // xhttp.send("id="+roomid+"&date="+dateb);
+    });
+  </script>
+  <% if(typeof fail != "undefined"){ %>
+    <script >
+      alert("ขออภัยวันที่ถูกจองแล้ว");
+      location.href='/main/booking';
+    </script>
+  <% } %>
+</body>
+
+</html>

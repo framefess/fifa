@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  </head>
+ <style>
+   .con{
+     width: 900px;
+     margin:auto;
+     border: 10px aqua ;
+   }
+   .w3-table th{
+    text-align: center;
+    vertical-align: middle;
+   }
+   .w3-table td:first-child{
+    text-align: center;
+    vertical-align: middle;
+   }
+   .w3-table td{
+    text-align: left;
+    vertical-align: middle;
+   }
+ </style>
+  <body>
+    <div class="w3-container con">
+      <center>
+        <h1><%= title %></h1>
+        <p>Welcome to <%= title %></p>
+        
+      </center>
+      <a href="/main/addroom" class="w3-button w3-blue" style="margin-bottom: 5px;"  >เพิ่มห้อง</a>
+      <a href="/main/booking" class="w3-button w3-green" style="margin-bottom: 5px;"  >จองห้อง</a>
+     
+
+      <a href="/logout" class="w3-button w3-grey" style="margin-bottom: 5px;float: right;" >ออกจากระบบ</a>
+      <table class="w3-ul w3-card-4 w3-table w3-bordered" >
+        <thead>
+          <tr>
+          <th style="width: 10%;">ลำดับ</th>
+          <th>ชื่อห้อง</th>
+          <th>รายละเอียด</th>
+          <th style="width: 1%;"></th>
+        </tr>
+      </thead>
+        <tbody>
+          <% for(var i=0; i<data.length; i++) {%>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= data[i].name %></td>
+              <td><%= data[i].description %></td>
+              <td nowrap>
+                <!-- <button class="w3-button w3-tiny">Tiny</button>  -->
+                <button class="w3-button w3-aqua w3-small" onclick="location.href='/main/roomdetail/<%= data[i]._id %>'">รายการจอง</button>
+                <button class="w3-button w3-red w3-small" onclick="location.href='/main/addroom/<%= data[i]._id %>'">ลบ</button>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <% if(typeof stat != "undefined"){ %>
+      <script >
+        alert("บันทึกการจองเรียบร้อย");
+        location.href='/main';
+      </script>
+    <% } %>
+  </body> 
+</html>

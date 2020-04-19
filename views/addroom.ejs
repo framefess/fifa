@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  </head>
+  <style>
+    .con {
+      width: 900px;
+      margin: auto;
+      border: 10px aqua;
+    }
+    .w3-table th {
+      text-align: center;
+      vertical-align: middle;
+    }
+    .w3-table td:first-child {
+      text-align: center;
+      vertical-align: middle;
+    }
+    .w3-table td {
+      text-align: left;
+      vertical-align: middle;
+    }
+    .w3-container {
+      width: 500px;
+    }
+  </style>
+  <body>
+    <div class="w3-container con">
+      <center>
+        <h1><%= title %></h1>
+      </center>
+      <div class="w3-container w3-teal">
+        <h2>เพิ่มห้อง</h2>
+      </div>
+
+      <form class="w3-container" method="POST" action="/main/addroom">
+        <% if (typeof message != "undefined") { %>
+        <div class="w3-panel w3-red">
+          <p><%= message %></p>
+        </div>
+        <% } %>
+        <label class="w3-text-teal"><b>ชื่อห้อง</b></label>
+        <input
+          class="w3-input w3-border w3-light-grey"
+          type="text"
+          name="name"
+          required
+        />
+
+        <label class="w3-text-teal"><b>รายละเอียด</b></label>
+        <input
+          class="w3-input w3-border w3-light-grey"
+          type="text"
+          name="description"
+        />
+        <center>
+          <button
+            type="submit"
+            class="w3-btn w3-blue-grey"
+            style="margin-top: 5px;"
+          >
+            เพิ่ม
+          </button>
+          <button
+            type="submit"
+            class="w3-btn w3-blue-grey"
+            onclick="location.href='/main'"
+            style="float: right; margin-top: 5px;"
+          >
+            ย้อนกลับ
+          </button>
+        </center>
+      </form>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var elements = document.getElementsByTagName("INPUT");
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].oninvalid = function (e) {
+          e.target.setCustomValidity("");
+          if (!e.target.validity.valid) {
+            e.target.setCustomValidity("กรุณากรอก");
+          }
+        };
+        elements[i].oninput = function (e) {
+          e.target.setCustomValidity("");
+        };
+      }
+    });
+
+
+  </script>
+</html>
