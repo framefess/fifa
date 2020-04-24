@@ -24,8 +24,7 @@ router.post('/addroom', async (req, res) => {
   const { name, description } = req.body
   console.log(req.body);
   const roomchk = await room.findOne({
-    name,
-    description
+    name
   })
 
   if (roomchk) {
@@ -70,7 +69,7 @@ router.post('/booking', async (req, res, next) => {
   //  const data = req.body;
  
   const { roomid, bookdate1, bookdate2,firstname,lastname,phone } = req.body;
-  
+  console.log(req.body);
    
   book.exists({$and:[{"roomid": req.body.room },{$or:[{$and : [{"start":{ $lte:bookdate1,$lte:bookdate2 }},{"end":{$gte:bookdate1,$gte:bookdate2}}]},{$and : [{"start":{ $gte:bookdate1,$lte:bookdate2 }},{"end":{$gte:bookdate1,$lte:bookdate2}}]}]}]},async (err, doc) => {
     console.log(doc);

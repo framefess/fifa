@@ -43,6 +43,7 @@ router.get('/session', (req, res) => {
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'FIFAGKROOM' });
 });
+
 router.get('/login', function (req, res, next) {
   req.session.destroy(function(err) {
     // ลบตัวแปร session ทั้งหมด 

@@ -80,24 +80,32 @@
         width: 100%;
       }
     }
+
+
+    
   </style>
   <body>
-    <form method="POST" action="/login">
+    <!-- <img
+    src="../images/banner.jpg"
+    style="width: 100%; max-width: 900px; height: auto;"
+  /> -->
+    <div class="banner" style="height: 300px; margin: 0px 0px 5px 0px;">
+     
+    </div>
+    <form method="POST" action="/login" style="padding: 0px 0px 20px 0px;">
       <!-- <div class="imgcontainer">
         <img src="img_avatar2.png" alt="Avatar" class="avatar" />
       </div> -->
       <center>
         <h1><%= title %></h1>
         <p>Welcome to <%= title %></p>
-        
       </center>
 
       <div class="container">
-        
         <% if (typeof message != "undefined") { %>
-          <div class="w3-panel w3-red">
-            <p><%= message %></p>
-          </div>
+        <div class="w3-panel w3-red">
+          <p><%= message %></p>
+        </div>
         <% } %>
         <label for="uname"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" name="id" required />
@@ -113,5 +121,7 @@
         <button type="submit">Login</button>
       </div>
     </form>
+    
+    <%- include('footer') -%>
   </body>
 </html>
