@@ -6,30 +6,30 @@ const room = require('../models/room');
 
 
 
-const admincheck = admin.findOne({id:"admin"});
+const admincheck = admin.findOne({ id: "admin" });
 
 if (!admincheck) {
-// สร้าง instance จาก model
-const data = new admin({ id: 'admin', password: 'admin' })
-// save ลง database (return เป็น Promise)
-data.save().then(() => console.log('success'))
-}else{
+  // สร้าง instance จาก model
+  const data = new admin({ id: 'admin', password: 'admin' })
+  // save ลง database (return เป็น Promise)
+  data.save().then(() => console.log('success'))
+} else {
 
-//   mongoose.connection.on('open', function(err, doc){
-//     console.log("connection established");
+  //   mongoose.connection.on('open', function(err, doc){
+  //     console.log("connection established");
 
-//     mongoose.connection.db.collection('admins', function(err, docs) {
-//         // Check for error
-//         if(err) return console.log(err);
-//         // Walk through the cursor
-//         docs.find().each(function(err, doc) {
-//             // Check for error
-//             if(err) return console.err(err);
-//             // Log document
-//             console.log(doc);
-//         })
-//     });
-// });
+  //     mongoose.connection.db.collection('admins', function(err, docs) {
+  //         // Check for error
+  //         if(err) return console.log(err);
+  //         // Walk through the cursor
+  //         docs.find().each(function(err, doc) {
+  //             // Check for error
+  //             if(err) return console.err(err);
+  //             // Log document
+  //             console.log(doc);
+  //         })
+  //     });
+  // });
 }
 
 
@@ -40,12 +40,20 @@ router.get('/session', (req, res) => {
 })
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
   res.render('index', { title: 'FIFAGKROOM' });
+  const admincheck = await admin.findOne({ id: "admin" });
+
+  if (!admincheck) {
+    // สร้าง instance จาก model
+    const data = new admin({ id: 'admin', password: 'admin' })
+    // save ลง database (return เป็น Promise)
+    data.save().then(() => console.log('success'))
+  }
 });
 
 router.get('/login', function (req, res, next) {
-  req.session.destroy(function(err) {
+  req.session.destroy(function (err) {
     // ลบตัวแปร session ทั้งหมด 
   })
   res.render('index', { title: 'FIFAGKROOM' });
@@ -76,12 +84,12 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/logout', function (req, res, next) {
-  req.session.destroy(function(err) {
+  req.session.destroy(function (err) {
     // ลบตัวแปร session ทั้งหมด 
     console.log("logout")
   })
   res.redirect('/')
-  
+
 });
 
 module.exports = router;
