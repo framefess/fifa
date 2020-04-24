@@ -41,15 +41,17 @@ router.get('/session', (req, res) => {
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  res.render('index', { title: 'FIFAGKROOM' });
-  const admincheck = await admin.findOne({ id: "admin" });
 
+  const admincheck = await admin.findOne({ id: "admin" });
   if (!admincheck) {
     // สร้าง instance จาก model
     const data = new admin({ id: 'admin', password: 'admin' })
     // save ลง database (return เป็น Promise)
     data.save().then(() => console.log('success'))
   }
+
+  res.render('index', { title: 'FIFAGKROOM' });
+  
 });
 
 router.get('/login', function (req, res, next) {
